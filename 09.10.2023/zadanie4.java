@@ -1,24 +1,34 @@
 import javax.swing.JOptionPane;
-
+import java.util.Random;
 
 public class zadanie4
 {
 	public static void main(String[] args)
 	{
 		int sproba, wartosc;
-		int life  = 0, win = 0;
-		String input = JOptionPane.showInputDialog("Podaj wartosc: ");
+		int life  = 1, win = 0;
+		Random rand = new Random();
+		String input = JOptionPane.showInputDialog("Podaj maksymalna wartosc: ");
 		wartosc = Integer.parseInt(input);
+		int wartosc1 = rand.nextInt(wartosc);
 		while (life < 7)
 		{
 			String input1 = JOptionPane.showInputDialog("Sproba: ");
 			sproba = Integer.parseInt(input1);
-			if (sproba == wartosc)
+			if (sproba == wartosc1)
 			{
 				win++;
 				break;
 			}
 			else {
+				if (sproba > wartosc1)
+				{
+					JOptionPane.showMessageDialog(null, "Liczba jest mniejsza");
+				}
+				else 
+				{
+					JOptionPane.showMessageDialog(null, "Liczba jest większa");
+				}
 				life++;
 			}
 		}
