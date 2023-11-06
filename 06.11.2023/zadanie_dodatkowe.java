@@ -1,44 +1,52 @@
 import java.io.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import java.util.Scanner;
 
 public class Zadanie4 {
     public static void main(String[] args) throws IOException {
         ArrayList<String> listaZadan = new ArrayList<>();
         File file = new File("zad1.txt");
-        if (file.exists())
-		{
+        if (file.exists()) {
             Scanner fileScanner = new Scanner(file);
-            while (fileScanner.hasNextLine())
-			{
+            while (fileScanner.hasNextLine()) {
                 String task = fileScanner.nextLine();
                 listaZadan.add(task);
             }
             fileScanner.close();
         }
 
-        Scanner keyboard = new Scanner(System.in);
         String noweZadanie;
         while (true)
 		{
-            System.out.print("Wprowadz dane (type exit zeby wyjsc) : ");
-            noweZadanie = keyboard.nextLine();
+            noweZadanie = JOptionPane.showInputDialog("Wprowadz dane\n(wpisz 'exit' aby wyjsc)\n(wpisz 'list' aby zobaczyc list): ");
 
             if (noweZadanie.equalsIgnoreCase("exit"))
 			{
                 break;
             }
+			
+			if (noweZadanie.equalsIgnoreCase("list"))
+			{
+				StringBuilder taskList = new StringBuilder("Lista:\n");
+                for (String task : listaZadan)
+				{
+					taskList.append(task).append("\n");
+				}
+				JOptionPane.showMessageDialog(null, taskList.toString());
+				continue;
+            }
 
             if (listaZadan.contains(noweZadanie))
 			{
-                System.out.println("Juz jest na liscie");
-				listaZadan.remove(noweZadanie);
-				System.out.println("Zostal usuniety");
+                JOptionPane.showMessageDialog(null, "Już jest na liście.");
+                listaZadan.remove(noweZadanie);
+                JOptionPane.showMessageDialog(null, "Zostalo usuniete");
             }
 			else
 			{
                 listaZadan.add(noweZadanie);
-                System.out.println("Jest dodane");
+                JOptionPane.showMessageDialog(null, "Dodano zadanie do listy.");
             }
         }
 
@@ -49,10 +57,11 @@ public class Zadanie4 {
         }
         outputFile.close();
 
-        System.out.println("List:");
+        StringBuilder taskList = new StringBuilder("Lista:\n");
         for (String task : listaZadan)
 		{
-            System.out.println(task);
+            taskList.append(task).append("\n");
         }
+        JOptionPane.showMessageDialog(null, taskList.toString());
     }
 }
